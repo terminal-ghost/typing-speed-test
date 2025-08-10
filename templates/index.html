@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="title">⚡ Typing Speed Test</h1>
+            <p class="subtitle">Test your typing speed and accuracy</p>
+        </header>
+
+        <!-- User Section -->
+        <div class="user-section">
+            <div class="user-info" id="userInfo" style="display: none;">
+                <div class="welcome-message">
+                    Welcome back, <span id="currentUsername"></span>!
+                    <button id="logoutBtn" class="btn btn-link">Logout</button>
+                </div>
+            </div>
+            
+            <div class="input-row">
+                <div class="time-limit-selector">
+                    <label for="timeLimit">Time Limit:</label>
+                    <select id="timeLimit" class="time-limit-dropdown">
+                        <option value="30">30 seconds</option>
+                        <option value="60" selected>1 minute</option>
+                        <option value="120">2 minutes</option>
+                        <option value="300">5 minutes</option>
+                        <option value="0">No limit</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Test Area -->
+        <div class="test-container">
+            <!-- Text to Type -->
+            <div class="text-display" id="textDisplay">
+                <p class="instruction-text">Click "Start Test" to begin typing!</p>
+            </div>
+
+            <!-- Typing Input -->
+            <textarea 
+                id="typingInput" 
+                class="typing-input" 
+                placeholder="Your typed text will appear here..."
+                disabled
+            ></textarea>
+
+            <!-- Progress Bar -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+                <span class="progress-text" id="progressText">0%</span>
+            </div>
+
+            <!-- Real-time Stats -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    <span class="stat-label">WPM</span>
+                    <span class="stat-value" id="currentWpm">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Accuracy</span>
+                    <span class="stat-value" id="currentAccuracy">100%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Time</span>
+                    <span class="stat-value" id="currentTime">0s</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Errors</span>
+                    <span class="stat-value" id="currentErrors">0</span>
+                </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="controls">
+                <button id="startBtn" class="btn btn-primary">Start Test</button>
+                <button id="resetBtn" class="btn btn-secondary" disabled>Reset</button>
+                <button id="newTextBtn" class="btn btn-secondary" disabled>New Text</button>
+            </div>
+        </div>
+
+        <!-- Authentication Modal -->
+        <div id="authModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeAuthModal">&times;</span>
+                <h2 id="authModalTitle">Welcome to Typing Speed Test!</h2>
+                <div id="authModalContent">
+                    <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">Sign up to track your progress and compete with others!</p>
+                    
+                    <!-- Login/Signup Toggle -->
+                    <div class="auth-toggle">
+                        <button id="showLoginBtn" class="btn btn-link active">Login</button>
+                        <span>|</span>
+                        <button id="showSignupBtn" class="btn btn-link">Sign Up</button>
+                    </div>
+                    
+                    <!-- Login Form -->
+                    <div id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginUsername">Username or Email:</label>
+                            <input type="text" id="loginUsername" class="form-input" placeholder="Enter username or email">
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password:</label>
+                            <input type="password" id="loginPassword" class="form-input" placeholder="Enter password">
+                        </div>
+                        <div class="auth-actions">
+                            <button id="loginBtn" class="btn btn-primary">Login</button>
+                            <button id="skipAuthBtn" class="btn btn-secondary">Continue as Guest</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Signup Form -->
+                    <div id="signupForm" class="auth-form" style="display: none;">
+                        <div class="form-group">
+                            <label for="signupUsername">Username:</label>
+                            <input type="text" id="signupUsername" class="form-input" placeholder="Choose a username">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupEmail">Email:</label>
+                            <input type="email" id="signupEmail" class="form-input" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="signupPassword">Password:</label>
+                            <input type="password" id="signupPassword" class="form-input" placeholder="Create a password (min 6 characters)">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password:</label>
+                            <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password">
+                        </div>
+                        <div class="auth-actions">
+                            <button id="signupBtn" class="btn btn-primary">Sign Up</button>
+                            <button id="skipAuthBtn2" class="btn btn-secondary">Continue as Guest</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Modal -->
+        <div id="resultsModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModal">&times;</span>
+                <h2>🎉 Test Complete!</h2>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <span class="result-label">Words Per Minute</span>
+                        <span class="result-value" id="finalWpm">--</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Accuracy</span>
+                        <span class="result-value" id="finalAccuracy">--%</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Time Taken</span>
+                        <span class="result-value" id="finalTime">--s</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Character Count</span>
+                        <span class="result-value" id="finalChars">--</span>
+                    </div>
+                </div>
+                <div class="result-actions">
+                    <button id="tryAgainBtn" class="btn btn-primary">Try Again</button>
+                    <button id="viewLeaderboardBtn" class="btn btn-secondary">View Leaderboard</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Section -->
+        <div class="leaderboard-section" id="leaderboardSection">
+            <h2>🏆 Leaderboard</h2>
+            <div class="leaderboard-controls">
+                <button id="refreshLeaderboard" class="btn btn-small">Refresh</button>
+                <button id="hideLeaderboard" class="btn btn-small">Hide</button>
+            </div>
+            <div class="leaderboard-container" id="leaderboardContainer">
+                <div class="loading">Loading leaderboard...</div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2024 Typing Speed Test | Built with Python Flask</p>
+            <div class="footer-stats">
+                <button id="showStatsBtn" class="btn btn-link">View My Stats</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Feedback Icon (Fixed Position) -->
+    <div id="feedbackIcon" class="feedback-icon">
+        <i class="fas fa-comment-alt"></i>
+        <span class="feedback-tooltip">Send Feedback</span>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content feedback-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-comments"></i> Send Us Your Feedback</h2>
+                <span class="close" id="closeFeedbackModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>We'd love to hear your thoughts about Keyzio! Your feedback helps us improve the platform.</p>
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="feedbackType">Feedback Type:</label>
+                        <select id="feedbackType" name="type" class="form-select">
+                            <option value="general">General Feedback</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="improvement">Improvement Suggestion</option>
+                            <option value="compliment">Compliment</option>
+                            <option value="complaint">Complaint</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackText">Your Message:</label>
+                        <textarea 
+                            id="feedbackText" 
+                            name="feedback" 
+                            placeholder="Please share your thoughts, suggestions, or report any issues you've encountered..."
+                            rows="6"
+                            maxlength="5000"
+                            required
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/5000 characters
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitFeedbackBtn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Feedback
+                        </button>
+                        <button type="button" class="btn-secondary" id="cancelFeedbackBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+                <div id="feedbackSuccess" class="success-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Thank you for your feedback! We appreciate your input.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

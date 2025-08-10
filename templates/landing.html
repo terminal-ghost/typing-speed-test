@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyzio - Test Your Typing Speed</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landing.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-keyboard"></i>
+                <span>Keyzio</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-link active" data-section="home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link" data-section="about">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#leaderboard" class="nav-link" data-section="leaderboard">Leaderboard</a>
+                </li>
+                <li class="nav-item">
+                    <button class="btn-primary" id="startTestBtn">Start Typing Test</button>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Master Your <span class="gradient-text">Typing Skills</span>
+                    </h1>
+                    <p class="hero-description">
+                        Test and improve your typing speed with our professional typing test platform. 
+                        Track your progress, compete with others, and become a typing master.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="totalTests">0</span>
+                            <span class="stat-label">Tests Taken</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="totalUsers">0</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">WPM Average</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <button class="btn-primary large" id="takeTestBtn">
+                            <i class="fas fa-rocket"></i>
+                            Take Typing Test
+                        </button>
+                        <button class="btn-secondary large" id="viewLeaderboardBtn">
+                            <i class="fas fa-trophy"></i>
+                            View Leaderboard
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="typing-animation">
+                        <div class="keyboard-icon">
+                            <i class="fas fa-keyboard"></i>
+                        </div>
+                        <div class="typing-text" id="typingAnimation">Welcome to Keyzio!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <h2 class="section-title">About Keyzio</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p class="lead">
+                            Keyzio is a comprehensive typing test platform designed to help you improve your typing speed and accuracy. Whether you're a beginner or a professional, our platform provides the tools you need to master the art of typing.
+                        </p>
+                        <div class="features-grid">
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-stopwatch"></i>
+                                </div>
+                                <h3>Real-time Testing</h3>
+                                <p>Get instant feedback on your typing speed, accuracy, and errors as you type.</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h3>Progress Tracking</h3>
+                                <p>Monitor your improvement over time with detailed statistics and performance metrics.</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h3>Global Leaderboard</h3>
+                                <p>Compete with users worldwide and see how you rank among the best typists.</p>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </div>
+                                <h3>Responsive Design</h3>
+                                <p>Practice typing on any device - desktop, tablet, or mobile.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <h2 class="section-title">Get In Touch</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>contact@typingmaster.pro</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>123 Tech Street, Silicon Valley, CA 94000</span>
+                        </div>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="contactName">Your Name</label>
+                                <input type="text" id="contactName" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactEmail">Email Address</label>
+                                <input type="email" id="contactEmail" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactSubject">Subject</label>
+                                <input type="text" id="contactSubject" name="subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="contactMessage">Message</label>
+                                <textarea id="contactMessage" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Leaderboard Section -->
+        <section id="leaderboard" class="section">
+            <div class="container">
+                <h2 class="section-title">Global Leaderboard</h2>
+                <div class="leaderboard-content">
+                    <div class="leaderboard-header">
+                        <p>See how you rank among the world's fastest typists!</p>
+                        <button class="btn-secondary" id="refreshLeaderboardBtn">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    <div class="leaderboard-table">
+                        <table id="leaderboardTable">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>WPM</th>
+                                    <th>Accuracy</th>
+                                    <th>Tests</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaderboardList">
+                                <tr>
+                                    <td colspan="5" class="loading-cell">
+                                        <div class="loader"></div>
+                                        <p>Loading leaderboard...</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Guest Modal -->
+    <div id="guestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Welcome to Keyzio!</h2>
+                <p>Enter your name to continue as a guest or sign up for a full account</p>
+            </div>
+            <form id="guestForm" class="guest-form">
+                <div class="form-group">
+                    <label for="guestName">Your Name</label>
+                    <input type="text" id="guestName" name="guestName" placeholder="Enter your name" required>
+                    <div class="input-error" id="guestNameError"></div>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit" class="btn-primary" id="continueAsGuestBtn">
+                        <i class="fas fa-user"></i>
+                        Continue as Guest
+                    </button>
+                    <button type="button" class="btn-secondary" id="signUpInsteadBtn">
+                        <i class="fas fa-user-plus"></i>
+                        Sign Up Instead
+                    </button>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <p class="terms">By continuing, you agree to our Terms of Service and Privacy Policy</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Feedback Icon (Fixed Position) -->
+    <div id="feedbackIcon" class="feedback-icon">
+        <i class="fas fa-comment-alt"></i>
+        <span class="feedback-tooltip">Send Feedback</span>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content feedback-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-comments"></i> Send Us Your Feedback</h2>
+                <span class="close" id="closeFeedbackModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>We'd love to hear your thoughts about Keyzio! Your feedback helps us improve the platform.</p>
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="feedbackType">Feedback Type:</label>
+                        <select id="feedbackType" name="type" class="form-select">
+                            <option value="general">General Feedback</option>
+                            <option value="bug">Bug Report</option>
+                            <option value="feature">Feature Request</option>
+                            <option value="improvement">Improvement Suggestion</option>
+                            <option value="compliment">Compliment</option>
+                            <option value="complaint">Complaint</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="feedbackText">Your Message:</label>
+                        <textarea 
+                            id="feedbackText" 
+                            name="feedback" 
+                            placeholder="Please share your thoughts, suggestions, or report any issues you've encountered..."
+                            rows="6"
+                            maxlength="5000"
+                            required
+                        ></textarea>
+                        <div class="char-counter">
+                            <span id="charCount">0</span>/5000 characters
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitFeedbackBtn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Feedback
+                        </button>
+                        <button type="button" class="btn-secondary" id="cancelFeedbackBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+                <div id="feedbackSuccess" class="success-message" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <p>Thank you for your feedback! We appreciate your input.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/landing.js') }}"></script>
+</body>
+</html>
